@@ -1,8 +1,16 @@
-# Global Cyber & Economic Real-Time Monitor
+Nome: Italo Holanda/ Mateus Hendell
 
-Dashboard de observabilidade em tempo real que cruza indicadores económicos multi-setoriais (Primário, Secundário, Terciário e ONGs) com feeds reais de Threat Intelligence OSINT (**SANS ISC / DShield**, **Abuse.ch Feodo Tracker** e **CISA KEV**).
 
-## Arquitetura de Resiliência & Segurança
-- **Edge Shield & Rate Limiting:** Implementação de *Token Bucket* para mitigação de rajadas DDoS e sanitização estrita anti-XSS/SQLi.
-- **Alta Disponibilidade:** Padrão *Circuit Breaker* aliado a cache SWR (*Stale-While-Revalidate*) e buffers circulares em memória.
-- **Drill-Down Geoespacial:** Filtragem dinâmica por Visão Global, Países, Estados e Municípios.
+#RELATORIO TESTES#
+
+Componente monolítico demais: UI + dados + regra de negócio + segurança tudo no mesmo arquivo;
+Dados fixos e utilitários embutidos dentro do componente, dificultando manutenção;
+Acesso direto ao localStorage sem proteção para ambiente ou quota;
+Constantes e regras repetidas espalhadas pelo arquivo, o que aumenta o risco de inconsistência.
+
+#CORREÇÕES APLICADAS#
+extraí os dados estáticos para src/dashboardData.js;
+extraí sanitização, rate limiter e circuit breaker para src/security.js;
+troquei localStorage direto por helpers seguros safeStorageGet e safeStorageSet;
+Dividi o App.jsx deixando o código mais clean
+mantive o comportamento visual e funcional do dashboard, mas com código muito mais legível e mais fácil de evoluir
